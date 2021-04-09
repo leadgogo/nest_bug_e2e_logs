@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "src": ["./src"],
+      "test": ["./test"],
+      "@leadgogo/backend-utils": ["../../shared/backend-utils/src"],
+    }
+  },
+  "include": [
+    "./src",
+    "./test",
+  ],
+  "references": [
+    { "path": "../../shared/backend-utils" }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "paths": {}
+  },
+  "include": [],
+  "references": [
+    { "path": "../../../shared/backend-utils/tsconfig.build.json" },
+    { "path": "../../../shared/e2e-helpers/tsconfig.build.json" }
+  ]
+}

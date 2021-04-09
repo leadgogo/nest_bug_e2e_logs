@@ -1,0 +1,265 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Campaign {
+  company: Company!
+  id: Int!
+  name: String!
+}
+
+input CampaignAgentListWhereInput {
+  _all: CampaignAgentWhereInput
+  _any: CampaignAgentWhereInput
+  _every: CampaignAgentWhereInput
+  _none: CampaignAgentWhereInput
+  _some: CampaignAgentWhereInput
+}
+
+input CampaignAgentWhereInput {
+  _and: [CampaignAgentWhereInput!]
+  _not: CampaignAgentWhereInput
+  _or: [CampaignAgentWhereInput!]
+  type: StringWhereInput
+}
+
+input CampaignListWhereInput {
+  _all: CampaignWhereInput
+  _any: CampaignWhereInput
+  _every: CampaignWhereInput
+  _none: CampaignWhereInput
+  _some: CampaignWhereInput
+}
+
+input CampaignWhereInput {
+  _and: [CampaignWhereInput!]
+  _not: CampaignWhereInput
+  _or: [CampaignWhereInput!]
+  agents: CampaignAgentListWhereInput
+  name: StringWhereInput
+}
+
+type Company {
+  id: Int!
+  name: String
+  timezone: String
+}
+
+type CompanyConnection {
+  edges: [CompanyEdge!]
+  nodes: [Company!]
+  pageInfo: PageInfo
+  totalCount: Int
+}
+
+type CompanyEdge {
+  cursor: String!
+  node: Company!
+}
+
+input CompanyOrderByInput {
+  name: OrderDirection
+  timezone: OrderDirection
+}
+
+input CompanyWhereInput {
+  _and: [CompanyWhereInput!]
+  _not: CompanyWhereInput
+  _or: [CompanyWhereInput!]
+  campaigns: CampaignListWhereInput
+  contacts: ContactListWhereInput
+  name: StringWhereInput
+  timezone: StringWhereInput
+}
+
+type Contact {
+  company: Company
+  createdAt: DateTime!
+  email: String
+  firstName: String
+  fullName: String
+  id: Int!
+  lastName: String
+  phoneCel: String
+  phoneProxy: String!
+  updatedAt: DateTime!
+}
+
+type ContactConnection {
+  edges: [ContactEdge!]
+  nodes: [Contact!]
+  pageInfo: PageInfo
+  totalCount: Int
+}
+
+type ContactEdge {
+  cursor: String!
+  node: Contact!
+}
+
+input ContactListWhereInput {
+  _all: ContactWhereInput
+  _any: ContactWhereInput
+  _every: ContactWhereInput
+  _none: ContactWhereInput
+  _some: ContactWhereInput
+}
+
+input ContactOrderByInput {
+  company: QueryCompaniesOrderByInput
+  email: OrderDirection
+  firstName: OrderDirection
+  id: OrderDirection
+}
+
+type ContactsFilterOptionsOutput {
+  accounts(active: Boolean): [User!]!
+  stages: [ContactStage!]!
+  tags(after: String, before: String, first: Int, last: Int, orderBy: ContactTagOrderByInput, where: ContactTagWhereInput): ContactTagConnection!
+}
+
+type ContactStage {
+  id: Int!
+  name(locale: String): String!
+  slug: String!
+  statuses: [ContactStatus!]!
+}
+
+type ContactStatus {
+  id: Int!
+  nameEn: String!
+  nameEs: String!
+}
+
+type ContactTag {
+  id: Int!
+  isActive: Boolean!
+  name: String!
+}
+
+type ContactTagConnection {
+  edges: [ContactTagEdge!]
+  nodes: [ContactTag!]
+  pageInfo: PageInfo
+  totalCount: Int
+}
+
+type ContactTagEdge {
+  cursor: String!
+  node: ContactTag!
+}
+
+input ContactTagOrderByInput {
+  name: OrderDirection
+}
+
+input ContactTagWhereInput {
+  _and: [ContactTagWhereInput!]
+  _not: ContactTagWhereInput
+  _or: [ContactTagWhereInput!]
+  name: StringWhereInput
+}
+
+input ContactWhereInput {
+  _and: [ContactWhereInput!]
+  _not: ContactWhereInput
+  _or: [ContactWhereInput!]
+  company: CompanyWhereInput
+  email: StringWhereInput
+  firstName: StringWhereInput
+  id: NumberWhereInput
+}
+
+input CreateCompanyInput {
+  name: String!
+  parentOrganizationId: Float!
+}
+
+type CreateCompanyOutput {
+  company: Company
+}
+
+input CreateContactInput {
+  companyId: Int!
+  email: String!
+  firstName: String!
+  lastName: String!
+}
+
+type CreateContactOutput {
+  contact: Contact
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createCompany(input: CreateCompanyInput!): CreateCompanyOutput!
+  createContact(input: CreateContactInput!): CreateContactOutput!
+  updateContact(input: UpdateContactInput!): UpdateContactOutput!
+}
+
+input NumberWhereInput {
+  _eq: Float
+}
+
+enum OrderDirection {
+  ASC
+  DESC
+}
+
+type PageInfo {
+  endCursor: String!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String!
+}
+
+type Query {
+  companies(after: String, before: String, first: Int, last: Int, orderBy: CompanyOrderByInput, where: CompanyWhereInput): CompanyConnection!
+  contact(id: Int!): Contact!
+  contacts(after: String, before: String, first: Int, last: Int, orderBy: ContactOrderByInput, where: ContactWhereInput): ContactConnection!
+  contactsFilterOptions(institutionId: Int!): ContactsFilterOptionsOutput!
+  getFeaturesForInstitution(institutionId: Float!): [String!]!
+  infiniteContacts(after: String, before: String, first: Int, last: Int): ContactConnection!
+}
+
+input QueryCompaniesOrderByInput {
+  name: OrderDirection
+  timezone: OrderDirection
+}
+
+type Role {
+  description: String!
+  id: Int!
+  name: String!
+}
+
+input StringWhereInput {
+  _contains: String
+  _eq: String
+}
+
+input UpdateContactInput {
+  companyId: Int
+  contactId: Int!
+  email: String
+  firstName: String
+  lastName: String
+}
+
+type UpdateContactOutput {
+  contact: Contact
+}
+
+type User {
+  active: Boolean!
+  email: String
+  firstName: String
+  fullName: String
+  id: Int!
+  lastName: String
+  role: Role!
+}

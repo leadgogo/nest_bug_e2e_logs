@@ -1,0 +1,5 @@
+services:
+  sql-migrations:
+    build:
+      context: ../../..
+      dockerfile: sql-migrations/Dockerfile

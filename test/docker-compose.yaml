@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=leadgogo
+      - MYSQL_PASSWORD=leadgogo
+      - MYSQL_DATABASE=leadgogo
+    volumes:
+      - '${LOCAL_WORKSPACE_FOLDER}/.dev/mysql/leadgogo_20200624_1428AST.sql.gz:/docker-entrypoint-initdb.d/dump.sql.gz'
+    ports:
+      - '$DB_PORT:3306'
+  redis:
+    image: redis:5.0.4
+    ports:
+      - '$REDIS_PORT:6379'
+  sql-migrations:
+    environment:
+      - DATABASE_URL=mysql://leadgogo:leadgogo@db:3306/leadgogo
+    depends_on:
+      - db
